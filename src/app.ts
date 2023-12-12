@@ -7,7 +7,7 @@ const app = express();
 
 //parsers
 app.use(express.json());
-app.use(express.text());
+
 app.use(cors());
 
 app.use("/api/course", CourseRoutes);

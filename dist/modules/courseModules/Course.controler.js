@@ -26,6 +26,73 @@ const CreatCourse = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
         next(err);
     }
 });
+const GetallCourse = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const result = yield Course_services_1.CourseServices.getALlCoursesInDB();
+        res.status(200).json({
+            success: true,
+            statusCode: 201,
+            message: "all Course retrived successfully",
+            data: result,
+        });
+    }
+    catch (err) {
+        next(err);
+    }
+});
+const GetSingleCourse = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { courseId } = req.params;
+        const result = yield Course_services_1.CourseServices.getSingleCourseInDB(courseId);
+        res.status(200).json({
+            success: true,
+            statusCode: 201,
+            message: "Course retrived successfully",
+            data: result,
+        });
+    }
+    catch (err) {
+        next(err);
+    }
+});
+const deleteCourse = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { courseId } = req.params;
+        const result = yield Course_services_1.CourseServices.DeleteOneInDB(courseId);
+        res.status(200).json({
+            success: true,
+            statusCode: 201,
+            message: "Course retrived successfully",
+            data: result,
+        });
+    }
+    catch (err) {
+        next(err);
+    }
+});
+const updateCourse = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { courseId } = req.params;
+        const data = req.body;
+        const result = yield Course_services_1.CourseServices.updateCourseInDB(courseId, data);
+        console.log(courseId, typeof (data));
+        // if(result.acknowledged===true) {
+        res.status(200).json({
+            success: true,
+            statusCode: 201,
+            message: "Course updated successfully",
+            data: result,
+        });
+        // }
+    }
+    catch (err) {
+        next(err);
+    }
+});
 exports.CourseControlers = {
-    CreatCourse
+    CreatCourse,
+    GetallCourse,
+    GetSingleCourse,
+    updateCourse,
+    deleteCourse
 };

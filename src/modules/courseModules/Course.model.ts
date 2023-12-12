@@ -24,7 +24,7 @@ const DetailsSchema = new Schema<TDetails>({
   },
   description: {
     type: String,
-    trim:true,
+    trim: true,
     required: [true, "Description is required"],
   },
 });
@@ -39,21 +39,37 @@ const courseSchema = new Schema<TCourse>({
 
   instructor: {
     type: String,
-    trim:true,
+    trim: true,
     required: [true, "Instructor is required"],
   },
   categoryId: {
     type: Schema.Types.ObjectId,
     required: [true, "CategoryId is required"],
-   
-    // ref: "Category",
+
+    ref: "Category",
   },
   price: { type: Number, required: [true, "Price is required"] },
   tags: { type: [TagsSchema], required: [true, "Tags is required"] },
-  startDate: { type: String,   trim:true, required: [true, "Start Date is required"] },
-  endDate: { type: String,   trim:true, required: [true, "End Date is required"] },
-  language: { type: String,   trim:true, required: [true, "Language is required"] },
-  provider: { type: String,   trim:true, required: [true, "provider is required"] },
+  startDate: {
+    type: String,
+    trim: true,
+    required: [true, "Start Date is required"],
+  },
+  endDate: {
+    type: String,
+    trim: true,
+    required: [true, "End Date is required"],
+  },
+  language: {
+    type: String,
+    trim: true,
+    required: [true, "Language is required"],
+  },
+  provider: {
+    type: String,
+    trim: true,
+    required: [true, "provider is required"],
+  },
   details: { type: DetailsSchema, required: [true, "Details is required"] },
 });
 

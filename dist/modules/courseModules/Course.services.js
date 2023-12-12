@@ -26,8 +26,8 @@ const getSingleCourseInDB = (id) => __awaiter(void 0, void 0, void 0, function* 
 const updateCourseInDB = (id, data) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield Course_model_1.CourseModel.findByIdAndUpdate(id, data, {
         new: true,
-        runValidators: true,
     });
+    return result;
 });
 const DeleteOneInDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield Course_model_1.CourseModel.findByIdAndDelete(id, { new: true });

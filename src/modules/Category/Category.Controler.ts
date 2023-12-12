@@ -34,8 +34,24 @@ const CreatCategory = async (req: Request, res: Response, next: NextFunction)=>{
     next(err)
   }
 }
+const getSingleCategory = async (req: Request, res: Response, next: NextFunction)=>{
+  try{
+    const {id} = req.params
+    const result = await CategoryServices.GetSingleCategories(id)
+    res.status(201).json({
+        success: true,
+        statusCode: 201,
+        message: "Category retrived successfully",
+        data: result,
+      })
+  }
+  catch(err){
+    next(err)
+  }
+}
 
 export const CategoryControllers = {
     GetAllCategories,
-    CreatCategory
+    CreatCategory,
+    getSingleCategory
 }

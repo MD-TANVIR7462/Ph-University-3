@@ -15,9 +15,14 @@ const GetAllCategories = async ()=>{
 const result = await CategoryModel.find()
 return result
 }
+const GetSingleCategories = async (id:string)=>{
+const result = await CategoryModel.findById(id)
+return result
+}
 
 export const CategoryServices = {
     CreatCategoryInDB,
     UpdateCategoryInDB,
-    GetAllCategories
+    GetAllCategories,
+    GetSingleCategories
 }

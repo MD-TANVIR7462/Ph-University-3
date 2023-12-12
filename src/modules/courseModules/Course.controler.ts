@@ -1,3 +1,4 @@
+import { ReviewServices } from "../ReviewModules/ReviewService";
 import { CourseServices } from "./Course.services";
 import { NextFunction, Request, Response } from "express";
 
@@ -50,6 +51,31 @@ const GetSingleCourse = async (
     next(err);
   }
 };
+const GetSingleCourseWithReviews = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { courseId } = req.params;
+    const result = await CourseServices.getSingleCourseInDB(courseId);
+    if (Object.keys(result as object).length > 0) {
+      const reviews = await ReviewServices.GetallReviewsForAsingleUserInDB(
+        courseId
+      );
+      console.log(reviews);
+      res.status(200).json({
+        success: true,
+        statusCode: 200,
+        message: "Course retrived successfully",
+        data: {result,reviews:reviews},
+      });
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 const deleteCourse = async (
   req: Request,
   res: Response,
@@ -76,18 +102,23 @@ const updateCourse = async (
   try {
     const { courseId } = req.params;
     const data = req.body;
-    
+
     const result = await CourseServices.updateCourseInDB(courseId, data);
-  
-    // if(result.acknowledged===true) {
+
+    if (result) {
       res.status(200).json({
         success: true,
         statusCode: 201,
         message: "Course updated successfully",
         data: result,
       });
-    // }
-  
+    } else {
+      res.status(404).json({
+        success: false,
+        statusCode: 404,
+        message: "Course Not Updated",
+      });
+    }
   } catch (err) {
     next(err);
   }
@@ -98,5 +129,6 @@ export const CourseControlers = {
   GetallCourse,
   GetSingleCourse,
   updateCourse,
-  deleteCourse
+  deleteCourse,
+  GetSingleCourseWithReviews,
 };

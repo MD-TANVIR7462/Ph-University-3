@@ -10,7 +10,14 @@ const GetallReviewsInDB = async () =>{
     const result = await ReviewModel.find()
     return result
 }
+const GetallReviewsForAsingleUserInDB = async (id:string) =>{
+    const result = await ReviewModel.find({
+        courseId:{$eq:id}})
+ 
+    return result
+}
 export const ReviewServices = {
     CreatReviewInDB,
-    GetallReviewsInDB
+    GetallReviewsInDB,
+    GetallReviewsForAsingleUserInDB
 }

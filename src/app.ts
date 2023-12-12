@@ -10,7 +10,7 @@ app.use(express.json());
 
 app.use(cors());
 
-app.use("/api/course", CourseRoutes);
+app.use("/api/courses", CourseRoutes);
 app.use("/api/categories", CategoryRoutes);
 app.use("/api/reviews", ReviewRoutes);
 

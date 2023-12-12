@@ -40,7 +40,23 @@ const CreatCategory = (req, res, next) => __awaiter(void 0, void 0, void 0, func
         next(err);
     }
 });
+const getSingleCategory = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const result = yield CategoryServicec_1.CategoryServices.GetSingleCategories(id);
+        res.status(201).json({
+            success: true,
+            statusCode: 201,
+            message: "Category retrived successfully",
+            data: result,
+        });
+    }
+    catch (err) {
+        next(err);
+    }
+});
 exports.CategoryControllers = {
     GetAllCategories,
-    CreatCategory
+    CreatCategory,
+    getSingleCategory
 };

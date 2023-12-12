@@ -23,8 +23,13 @@ const GetAllCategories = () => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield Category_model_1.CategoryModel.find();
     return result;
 });
+const GetSingleCategories = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield Category_model_1.CategoryModel.findById(id);
+    return result;
+});
 exports.CategoryServices = {
     CreatCategoryInDB,
     UpdateCategoryInDB,
-    GetAllCategories
+    GetAllCategories,
+    GetSingleCategories
 };

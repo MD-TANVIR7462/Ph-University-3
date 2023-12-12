@@ -11,9 +11,8 @@ const ReviewRoutes_1 = require("./modules/ReviewModules/ReviewRoutes");
 const app = (0, express_1.default)();
 //parsers
 app.use(express_1.default.json());
-app.use(express_1.default.text());
 app.use((0, cors_1.default)());
-app.use("/api/course", CourseRoutes_1.CourseRoutes);
+app.use("/api/courses", CourseRoutes_1.CourseRoutes);
 app.use("/api/categories", CategoryRoutes_1.CategoryRoutes);
 app.use("/api/reviews", ReviewRoutes_1.ReviewRoutes);
 app.get("/", (req, res) => {

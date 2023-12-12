@@ -10,11 +10,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CourseControlers = void 0;
+const Course_Validation_1 = require("./Course.Validation");
 const Course_services_1 = require("./Course.services");
 const CreatCourse = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const course = req.body;
-        const result = yield Course_services_1.CourseServices.creatACourseInDB(course);
+        const ZodValidation = Course_Validation_1.CourseValidation.createCourseSchemaValidation.parse(course);
+        const result = yield Course_services_1.CourseServices.creatACourseInDB(ZodValidation);
         res.status(200).json({
             success: true,
             statusCode: 201,
@@ -74,16 +76,23 @@ const updateCourse = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
     try {
         const { courseId } = req.params;
         const data = req.body;
-        const result = yield Course_services_1.CourseServices.updateCourseInDB(courseId, data);
-        console.log(courseId, typeof (data));
-        // if(result.acknowledged===true) {
-        res.status(200).json({
-            success: true,
-            statusCode: 201,
-            message: "Course updated successfully",
-            data: result,
-        });
-        // }
+        const ZodValidationUpdate = Course_Validation_1.CourseValidation.updateCourseSchemaValidation.parse(data);
+        const result = yield Course_services_1.CourseServices.updateCourseInDB(courseId, ZodValidationUpdate);
+        if (result) {
+            res.status(200).json({
+                success: true,
+                statusCode: 201,
+                message: "Course updated successfully",
+                data: result,
+            });
+        }
+        else {
+            res.status(404).json({
+                success: false,
+                statusCode: 404,
+                message: "Course Not Updated",
+            });
+        }
     }
     catch (err) {
         next(err);
@@ -94,5 +103,5 @@ exports.CourseControlers = {
     GetallCourse,
     GetSingleCourse,
     updateCourse,
-    deleteCourse
+    deleteCourse,
 };

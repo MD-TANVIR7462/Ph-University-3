@@ -19,7 +19,14 @@ const GetallReviewsInDB = () => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield Review_model_1.ReviewModel.find();
     return result;
 });
+const GetallReviewsForAsingleUserInDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield Review_model_1.ReviewModel.find({
+        courseId: { $eq: id }
+    });
+    return result;
+});
 exports.ReviewServices = {
     CreatReviewInDB,
-    GetallReviewsInDB
+    GetallReviewsInDB,
+    GetallReviewsForAsingleUserInDB
 };

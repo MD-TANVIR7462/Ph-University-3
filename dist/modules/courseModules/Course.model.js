@@ -42,14 +42,30 @@ const courseSchema = new mongoose_1.Schema({
     categoryId: {
         type: mongoose_1.Schema.Types.ObjectId,
         required: [true, "CategoryId is required"],
-        // ref: "Category",
+        ref: "Category",
     },
     price: { type: Number, required: [true, "Price is required"] },
     tags: { type: [TagsSchema], required: [true, "Tags is required"] },
-    startDate: { type: String, trim: true, required: [true, "Start Date is required"] },
-    endDate: { type: String, trim: true, required: [true, "End Date is required"] },
-    language: { type: String, trim: true, required: [true, "Language is required"] },
-    provider: { type: String, trim: true, required: [true, "provider is required"] },
+    startDate: {
+        type: String,
+        trim: true,
+        required: [true, "Start Date is required"],
+    },
+    endDate: {
+        type: String,
+        trim: true,
+        required: [true, "End Date is required"],
+    },
+    language: {
+        type: String,
+        trim: true,
+        required: [true, "Language is required"],
+    },
+    provider: {
+        type: String,
+        trim: true,
+        required: [true, "provider is required"],
+    },
     details: { type: DetailsSchema, required: [true, "Details is required"] },
 });
 exports.CourseModel = (0, mongoose_1.model)("course", courseSchema);

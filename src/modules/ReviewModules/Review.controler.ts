@@ -29,7 +29,7 @@ const GetAllReview = async (
     const result = await ReviewServices.GetallReviewsInDB();
     res.status(200).json({
       success: true,
-      statusCode: 201,
+      statusCode: 200,
       message: "Reviews Retrived successfully",
       data: result,
     });

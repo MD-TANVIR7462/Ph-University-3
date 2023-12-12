@@ -5,3 +5,4 @@ const router = Router()
 
 router.get('/', ReviewControllers.GetAllReview)
 router.post('/', ReviewControllers.CreateReview)
+export const ReviewRoutes = router

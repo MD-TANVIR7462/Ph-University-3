@@ -31,7 +31,7 @@ const GetAllReview = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
         const result = yield ReviewService_1.ReviewServices.GetallReviewsInDB();
         res.status(200).json({
             success: true,
-            statusCode: 201,
+            statusCode: 200,
             message: "Reviews Retrived successfully",
             data: result,
         });

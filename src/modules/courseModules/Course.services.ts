@@ -1,4 +1,5 @@
-import AppError from "../Errors/AppError";
+
+import AppError from "../../Errors/AppError";
 import { TCourse } from "./Course.interface";
 import { CourseModel } from "./Course.model";
 
@@ -41,3 +42,14 @@ export const CourseServices = {
   updateCourseInDB,
   DeleteOneInDB,
 };
+
+
+
+
+
+
+
+
+
+
+

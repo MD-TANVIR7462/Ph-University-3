@@ -8,25 +8,24 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const app_1 = __importDefault(require("./app"));
-// const mongoose = require("mongoose");
-const mongoose_1 = __importDefault(require("mongoose"));
-require("dotenv").config();
-function main() {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            yield mongoose_1.default.connect(process.env.DB_URL);
-            app_1.default.listen(process.env.port, () => {
-                console.log(`Example app listening on port ${process.env.port}`);
-            });
-        }
-        catch (err) {
-            console.log(err);
-        }
-    });
-}
-main();
+exports.CourseControlers = void 0;
+const Course_services_1 = require("./Course.services");
+const CreatCourse = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const course = req.body;
+        const result = yield Course_services_1.CourseServices.creatACourseInDB(course);
+        res.status(200).json({
+            success: true,
+            statusCode: 201,
+            message: "Course created successfully",
+            data: result,
+        });
+    }
+    catch (err) {
+        next(err);
+    }
+});
+exports.CourseControlers = {
+    CreatCourse
+};

@@ -11,10 +11,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ReviewControllers = void 0;
 const ReviewService_1 = require("./ReviewService");
+const ReviewsValidation_1 = require("./ReviewsValidation");
 const CreateReview = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const data = req.body;
-        const result = yield ReviewService_1.ReviewServices.CreatReviewInDB(data);
+        const ZodValidation = ReviewsValidation_1.ReviewValidation.reviewValidation.parse(data);
+        const result = yield ReviewService_1.ReviewServices.CreatReviewInDB(ZodValidation);
         res.status(201).json({
             success: true,
             statusCode: 201,

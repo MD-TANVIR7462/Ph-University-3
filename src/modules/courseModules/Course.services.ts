@@ -1,4 +1,3 @@
-
 import AppError from "../../Errors/AppError";
 import { TCourse } from "./Course.interface";
 import { CourseModel } from "./Course.model";
@@ -16,18 +15,10 @@ const getSingleCourseInDB = async (id: string) => {
   return result;
 };
 const updateCourseInDB = async (id: string, data: Partial<TCourse>) => {
-  if(Object.keys(data).length>0){
-    const result = await CourseModel.findByIdAndUpdate(id, data as object, {
-      new: true,
-  
-    });
-    return result
-  }
-else{
-throw new AppError(201,"Please insert a valid feild and value");
-
-}
-  
+  const result = await CourseModel.findByIdAndUpdate(id, data as object, {
+    new: true,
+  });
+  return result
 };
 
 const DeleteOneInDB = async (id: string) => {
@@ -42,14 +33,3 @@ export const CourseServices = {
   updateCourseInDB,
   DeleteOneInDB,
 };
-
-
-
-
-
-
-
-
-
-
-

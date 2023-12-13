@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { ReviewServices } from "./ReviewService";
+import { ReviewValidation } from "./ReviewsValidation";
 
 const CreateReview = async (
   req: Request,
@@ -8,7 +9,8 @@ const CreateReview = async (
 ) => {
   try {
     const data = req.body;
-    const result = await ReviewServices.CreatReviewInDB(data);
+    const ZodValidation = ReviewValidation.reviewValidation.parse(data)
+    const result = await ReviewServices.CreatReviewInDB(ZodValidation);
     res.status(201).json({
       success: true,
       statusCode: 201,

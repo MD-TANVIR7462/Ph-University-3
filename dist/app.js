@@ -8,6 +8,7 @@ const express_1 = __importDefault(require("express"));
 const CourseRoutes_1 = require("./modules/courseModules/CourseRoutes");
 const CategoryRoutes_1 = require("./modules/Category/CategoryRoutes");
 const ReviewRoutes_1 = require("./modules/ReviewModules/ReviewRoutes");
+const zod_1 = require("zod");
 const app = (0, express_1.default)();
 //parsers
 app.use(express_1.default.json());
@@ -19,11 +20,22 @@ app.get("/", (req, res) => {
     res.send("Hello World!");
 });
 app.use((err, req, res, next) => {
-    const messsage = err.message || "Something went wrong";
+    let messsage;
+    let errorMessage;
+    if (err instanceof zod_1.ZodError) {
+        const FindErrorZOd = (err) => {
+            const Eror = err.issues.map((er) => ((messsage = "Validation Error"),
+                (errorMessage = er.message)));
+        };
+        FindErrorZOd(err);
+    }
+    console.log(err);
     res.status(500).json({
         success: false,
         message: messsage,
-        error: err,
+        errorMessage: errorMessage,
+        errorDetails: err,
+        stack: err.stack,
     });
 });
 exports.default = app;

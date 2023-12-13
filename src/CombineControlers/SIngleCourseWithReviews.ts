@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from "express";
 import { CourseServices } from "../modules/courseModules/Course.services";
 import { ReviewServices } from "../modules/ReviewModules/ReviewService";
 
-
 const GetSingleCourseWithReviews = async (
   req: Request,
   res: Response,
@@ -15,7 +14,7 @@ const GetSingleCourseWithReviews = async (
       const reviews = await ReviewServices.GetallReviewsForAsingleUserInDB(
         courseId
       );
-      console.log(reviews);
+
       res.status(200).json({
         success: true,
         statusCode: 200,
@@ -29,7 +28,5 @@ const GetSingleCourseWithReviews = async (
 };
 
 export const CombineCourseReview = {
-  GetSingleCourseWithReviews
-}
-
-
+  GetSingleCourseWithReviews,
+};

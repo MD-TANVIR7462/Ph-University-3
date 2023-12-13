@@ -76,23 +76,14 @@ const updateCourse = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
     try {
         const { courseId } = req.params;
         const data = req.body;
-        const ZodValidationUpdate = Course_Validation_1.CourseValidation.updateCourseSchemaValidation.parse(data);
-        const result = yield Course_services_1.CourseServices.updateCourseInDB(courseId, ZodValidationUpdate);
-        if (result) {
-            res.status(200).json({
-                success: true,
-                statusCode: 201,
-                message: "Course updated successfully",
-                data: result,
-            });
-        }
-        else {
-            res.status(404).json({
-                success: false,
-                statusCode: 404,
-                message: "Course Not Updated",
-            });
-        }
+        const zodData = Course_Validation_1.CourseValidation.updateCourseSchemaValidation.parse(data);
+        const result = yield Course_services_1.CourseServices.updateCourseInDB(courseId, zodData);
+        res.status(200).json({
+            success: true,
+            statusCode: 201,
+            message: "Course updated successfully",
+            data: result,
+        });
     }
     catch (err) {
         next(err);

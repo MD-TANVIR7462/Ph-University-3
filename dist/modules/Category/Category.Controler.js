@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CategoryControllers = void 0;
 const CategoryServicec_1 = require("./CategoryServicec");
+const CategoryValidation_1 = require("./CategoryValidation");
 const GetAllCategories = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const result = yield CategoryServicec_1.CategoryServices.GetAllCategories();
@@ -28,7 +29,8 @@ const GetAllCategories = (req, res, next) => __awaiter(void 0, void 0, void 0, f
 const CreatCategory = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const data = req.body;
-        const result = yield CategoryServicec_1.CategoryServices.CreatCategoryInDB(data);
+        const ZODvalidation = CategoryValidation_1.CategoryValidation.categoryValidation.parse(data);
+        const result = yield CategoryServicec_1.CategoryServices.CreatCategoryInDB(ZODvalidation);
         res.status(201).json({
             success: true,
             statusCode: 201,

@@ -18,7 +18,6 @@ const GetSingleCourseWithReviews = (req, res, next) => __awaiter(void 0, void 0,
         const result = yield Course_services_1.CourseServices.getSingleCourseInDB(courseId);
         if (Object.keys(result).length > 0) {
             const reviews = yield ReviewService_1.ReviewServices.GetallReviewsForAsingleUserInDB(courseId);
-            console.log(reviews);
             res.status(200).json({
                 success: true,
                 statusCode: 200,
@@ -32,5 +31,5 @@ const GetSingleCourseWithReviews = (req, res, next) => __awaiter(void 0, void 0,
     }
 });
 exports.CombineCourseReview = {
-    GetSingleCourseWithReviews
+    GetSingleCourseWithReviews,
 };

@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { CategoryServices } from "./CategoryServicec";
+import { CategoryValidation } from "./CategoryValidation";
 
 const GetAllCategories = async (
   req: Request,
@@ -22,7 +23,8 @@ const GetAllCategories = async (
 const CreatCategory = async (req: Request, res: Response, next: NextFunction)=>{
   try{
     const data = req.body
-    const result = await CategoryServices.CreatCategoryInDB(data)
+    const ZODvalidation = CategoryValidation.categoryValidation.parse(data);
+    const result = await CategoryServices.CreatCategoryInDB(ZODvalidation)
     res.status(201).json({
         success: true,
         statusCode: 201,

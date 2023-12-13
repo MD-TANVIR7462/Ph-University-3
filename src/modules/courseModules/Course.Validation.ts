@@ -20,7 +20,7 @@ const detailsSchema = z.object({
 const createCourseSchemaValidation = z.object({
   title: z.string().trim().min(1),
   instructor: z.string().trim().min(1),
-  categoryId: z.string(), // Assuming category ID is a string; update if needed
+  categoryId: z.string(),
   price: z.number().min(0),
   tags: z.array(tagSchema),
   startDate: z.string().trim().min(1),
@@ -33,7 +33,7 @@ const createCourseSchemaValidation = z.object({
 const updateCourseSchemaValidation = z.object({
   title: z.string().trim().min(1).optional(),
   instructor: z.string().trim().min(1).optional(),
-  categoryId: z.string().optional(), // Assuming category ID is a string; update if needed
+  categoryId: z.string().optional(),
   price: z.number().min(0).optional(),
   tags: z.array(tagSchema).optional(),
   startDate: z.string().trim().min(1).optional(),

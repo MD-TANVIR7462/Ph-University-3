@@ -20,27 +20,35 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-  let messsage;
-  let errorMessage;
-
+  let messsage: any;
+let finalMessage:any
 
   if (err instanceof ZodError) {
+  
+    let errorMessage: any;
+    console.log(err);
     const FindErrorZOd = (err: any) => {
+   
       const Eror = err.issues.map(
-        (er: { message: any; errors: any }) => (
-          (messsage = "Validation Error"),
-          (errorMessage = er.message)
+        (er: { message: any; errors: any; path: any }) => (
         
+         (
+            errorMessage = `${er.path[er.path.length - 1]} is ${er.message}.`
+          ),
+          (messsage = "Validation Error"),
+          finalMessage=`${errorMessage}.${finalMessage}`
         )
       );
     };
     FindErrorZOd(err);
   }
-  console.log(err);
+
+  //
+
   res.status(500).json({
     success: false,
     message: messsage,
-    errorMessage: errorMessage,
+    errorMessage: finalMessage,
     errorDetails: err,
     stack: err.stack,
   });

@@ -7,7 +7,7 @@ const SIngleCourseWithReviews_1 = require("../../CombineControlers/SIngleCourseW
 const router = (0, express_1.Router)();
 router.post('/', Course_controler_1.CourseControlers.CreatCourse);
 router.get('/', Course_controler_1.CourseControlers.GetallCourse);
-router.get('/:page', Course_controler_1.CourseControlers.GetallCourse);
+router.get('/:courseId', Course_controler_1.CourseControlers.GetSingleCourse);
 router.get('/:courseId/reviews', SIngleCourseWithReviews_1.CombineCourseReview.GetSingleCourseWithReviews);
 router.delete('/:courseId', Course_controler_1.CourseControlers.deleteCourse);
 router.put('/:courseId', Course_controler_1.CourseControlers.updateCourse);

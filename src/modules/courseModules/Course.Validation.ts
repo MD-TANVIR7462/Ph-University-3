@@ -12,8 +12,8 @@ const detailsSchema = z.object({
     .enum(['Beginner', 'Intermediate', 'Advanced'])
     .refine((data) => data !== undefined, {
       message: 'Level must be either Beginner, Intermediate, or Advanced',
-    }),
-  description: z.string().trim().min(1),
+    }).optional(),
+  description: z.string().trim().min(1).optional(),
 });
 
 

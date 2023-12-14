@@ -11,8 +11,8 @@ const detailsSchema = zod_1.z.object({
         .enum(['Beginner', 'Intermediate', 'Advanced'])
         .refine((data) => data !== undefined, {
         message: 'Level must be either Beginner, Intermediate, or Advanced',
-    }),
-    description: zod_1.z.string().trim().min(1),
+    }).optional(),
+    description: zod_1.z.string().trim().min(1).optional(),
 });
 const createCourseSchemaValidation = zod_1.z.object({
     title: zod_1.z.string().trim().min(1),

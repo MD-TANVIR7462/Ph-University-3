@@ -33,7 +33,8 @@ const GetallCourse = async (req: Request, res: Response, next: NextFunction) => 
   try {
   
     const {
-      limit = '10',
+      page="1",
+      limit ="10",
       sortBy,
       sortOrder,
       minPrice,
@@ -46,7 +47,7 @@ const GetallCourse = async (req: Request, res: Response, next: NextFunction) => 
       durationInWeeks,
       level,
     } = req.query;
-    const page = req.params.page || 1;
+    
 
     const pageNumber = Array.isArray(page) ? parseInt(page[0] as string) : parseInt(page as string);
     const limitNumber = parseInt(limit as string);

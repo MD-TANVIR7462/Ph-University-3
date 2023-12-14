@@ -35,8 +35,7 @@ const CreatCourse = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
 });
 const GetallCourse = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { limit = '10', sortBy, sortOrder, minPrice, maxPrice, tags, startDate, endDate, language, provider, durationInWeeks, level, } = req.query;
-        const page = req.params.page || 1;
+        const { page = "1", limit = "10", sortBy, sortOrder, minPrice, maxPrice, tags, startDate, endDate, language, provider, durationInWeeks, level, } = req.query;
         const pageNumber = Array.isArray(page) ? parseInt(page[0]) : parseInt(page);
         const limitNumber = parseInt(limit);
         const filter = {};

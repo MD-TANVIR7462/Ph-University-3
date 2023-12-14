@@ -6,10 +6,17 @@ const creatACourseInDB = async (course: TCourse) => {
   const result = await CourseModel.create(course);
   return result;
 };
-const getALlCoursesInDB = async () => {
-  const result = await CourseModel.find().lean();
-  return result;
+const getALlCoursesInDB = async (filter: any, sort: any, page: number, limit: number) => {
+  const skip = (page - 1) * limit;
+
+  const query = CourseModel.find(filter).sort(sort).skip(skip).limit(limit).lean();
+  const total = await CourseModel.countDocuments(filter);
+
+  const result = await query.exec();
+
+  return { data: result, total };
 };
+
 const getSingleCourseInDB = async (id: string) => {
   const result = await CourseModel.findById(id).lean();
   return result;

@@ -35,12 +35,43 @@ const CreatCourse = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
 });
 const GetallCourse = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const result = yield Course_services_1.CourseServices.getALlCoursesInDB();
+        const { limit = '10', sortBy, sortOrder, minPrice, maxPrice, tags, startDate, endDate, language, provider, durationInWeeks, level, } = req.query;
+        const page = req.params.page || 1;
+        const pageNumber = Array.isArray(page) ? parseInt(page[0]) : parseInt(page);
+        const limitNumber = parseInt(limit);
+        const filter = {};
+        if (minPrice)
+            filter.price = { $gte: parseFloat(minPrice) };
+        if (maxPrice)
+            filter.price = Object.assign(Object.assign({}, filter.price), { $lte: parseFloat(maxPrice) });
+        if (tags)
+            filter['tags.name'] = tags;
+        if (startDate)
+            filter.startDate = { $gte: new Date(startDate) };
+        if (endDate)
+            filter.endDate = { $lte: new Date(endDate) };
+        if (language)
+            filter.language = language;
+        if (provider)
+            filter.provider = provider;
+        if (durationInWeeks)
+            filter.durationInWeeks = parseInt(durationInWeeks);
+        if (level)
+            filter['details.level'] = level;
+        const sort = {};
+        if (sortBy)
+            sort[sortBy] = sortOrder === 'desc' ? -1 : 1;
+        const result = yield Course_services_1.CourseServices.getALlCoursesInDB(filter, sort, pageNumber, limitNumber);
         res.status(200).json({
             success: true,
-            statusCode: 201,
-            message: "all Course retrived successfully",
-            data: result,
+            statusCode: 200,
+            message: 'Courses retrieved successfully',
+            meta: {
+                page: pageNumber,
+                limit: limitNumber,
+                total: result.total,
+            },
+            data: result.data,
         });
     }
     catch (err) {

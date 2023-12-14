@@ -8,7 +8,7 @@ const router = Router();
 
 router.post('/',CourseControlers.CreatCourse)
 router.get('/',CourseControlers.GetallCourse)
-router.get('/:courseId',CourseControlers.GetSingleCourse)
+router.get('/:page',CourseControlers.GetallCourse)
 router.get('/:courseId/reviews',CombineCourseReview.GetSingleCourseWithReviews)
 router.delete('/:courseId',CourseControlers.deleteCourse)
 router.put('/:courseId',CourseControlers.updateCourse)

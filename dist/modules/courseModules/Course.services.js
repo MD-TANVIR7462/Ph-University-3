@@ -15,9 +15,12 @@ const creatACourseInDB = (course) => __awaiter(void 0, void 0, void 0, function*
     const result = yield Course_model_1.CourseModel.create(course);
     return result;
 });
-const getALlCoursesInDB = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield Course_model_1.CourseModel.find().lean();
-    return result;
+const getALlCoursesInDB = (filter, sort, page, limit) => __awaiter(void 0, void 0, void 0, function* () {
+    const skip = (page - 1) * limit;
+    const query = Course_model_1.CourseModel.find(filter).sort(sort).skip(skip).limit(limit).lean();
+    const total = yield Course_model_1.CourseModel.countDocuments(filter);
+    const result = yield query.exec();
+    return { data: result, total };
 });
 const getSingleCourseInDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield Course_model_1.CourseModel.findById(id).lean();

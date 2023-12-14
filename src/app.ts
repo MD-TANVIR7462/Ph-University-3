@@ -19,35 +19,37 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Hello World!");
 });
 
-app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-  let messsage: any;
-let finalMessage:any
 
-  if (err instanceof ZodError) {
+
+  app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+    let message: any;
+    let finalMessage: any;
   
-    let errorMessage: any;
-    console.log(err);
-    const FindErrorZOd = (err: any) => {
+    if (err instanceof ZodError) {
+      let errorMessage: any;
    
-      const Eror = err.issues.map(
-        (er: { message: any; errors: any; path: any }) => (
+      const findErrorZod = (err: any) => {
+        const errorArray = err.issues.map(
+          (er: { message: any; errors: any; path: any }) => {
+            return `${er.path[er.path.length - 1]} is ${er.message}.`;
+          }
+        );
+  
+        if (errorArray.length > 0) {
         
-         (
-            errorMessage = `${er.path[er.path.length - 1]} is ${er.message}.`
-          ),
-          (messsage = "Validation Error"),
-          finalMessage=`${errorMessage}.${finalMessage}`
-        )
-      );
-    };
-    FindErrorZOd(err);
-  }
-
-  //
-
+          errorMessage = errorArray.join(' ');
+          message = "Validation Error";
+          finalMessage = `${errorMessage}.`;
+        }
+      };
+      findErrorZod(err);
+    }
+  
+ 
+  
   res.status(500).json({
     success: false,
-    message: messsage,
+    message: message,
     errorMessage: finalMessage,
     errorDetails: err,
     stack: err.stack,

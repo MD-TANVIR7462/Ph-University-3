@@ -20,5 +20,7 @@ export type TCourse = {
   language: string;
   provider: string;
   details: TDetails;
+  averageRating:number
+  reviewCount:number
 };
 

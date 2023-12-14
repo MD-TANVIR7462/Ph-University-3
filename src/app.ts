@@ -5,6 +5,7 @@ import { CategoryRoutes } from "./modules/Category/CategoryRoutes";
 import { ReviewRoutes } from "./modules/ReviewModules/ReviewRoutes";
 import { ZodError, any } from "zod";
 import mongoose from "mongoose";
+import { CourseControlers } from "./modules/courseModules/Course.controler";
 const app = express();
 
 //parsers
@@ -13,8 +14,11 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/api/courses", CourseRoutes);
+app.post("/api/course",CourseControlers.CreatCourse);
 app.use("/api/categories", CategoryRoutes);
 app.use("/api/reviews", ReviewRoutes);
+app.get("/api/course/best",CourseControlers.GetBest)
+
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello World!");

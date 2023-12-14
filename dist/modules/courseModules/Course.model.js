@@ -24,7 +24,8 @@ const DetailsSchema = new mongoose_1.Schema({
     description: {
         type: String,
         trim: true,
-        required: [true, "Description is required"],
+        required: false,
+        default: "Detailed description of the course"
     },
 });
 const courseSchema = new mongoose_1.Schema({
@@ -71,5 +72,7 @@ const courseSchema = new mongoose_1.Schema({
         optional: true,
     },
     details: { type: DetailsSchema, required: [true, "Details is required"] },
+    averageRating: { type: Number, default: 0, },
+    reviewCount: { type: Number, default: 0, },
 });
 exports.CourseModel = (0, mongoose_1.model)("course", courseSchema);

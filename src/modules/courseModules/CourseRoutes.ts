@@ -6,7 +6,7 @@ import { CombineCourseReview } from '../../CombineControlers/SIngleCourseWithRev
 
 const router = Router();
 
-router.post('/',CourseControlers.CreatCourse)
+
 router.get('/',CourseControlers.GetallCourse)
 router.get('/:courseId',CourseControlers.GetSingleCourse)
 router.get('/:courseId/reviews',CombineCourseReview.GetSingleCourseWithReviews)

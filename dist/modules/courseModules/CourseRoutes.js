@@ -5,7 +5,6 @@ const express_1 = require("express");
 const Course_controler_1 = require("./Course.controler");
 const SIngleCourseWithReviews_1 = require("../../CombineControlers/SIngleCourseWithReviews");
 const router = (0, express_1.Router)();
-router.post('/', Course_controler_1.CourseControlers.CreatCourse);
 router.get('/', Course_controler_1.CourseControlers.GetallCourse);
 router.get('/:courseId', Course_controler_1.CourseControlers.GetSingleCourse);
 router.get('/:courseId/reviews', SIngleCourseWithReviews_1.CombineCourseReview.GetSingleCourseWithReviews);

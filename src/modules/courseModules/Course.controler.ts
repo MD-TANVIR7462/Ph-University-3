@@ -80,7 +80,7 @@ const GetallCourse = async (
     res.status(200).json({
       success: true,
       statusCode: 200,
-      message: "Course and Reviews retrieved successfully",
+      message: "Courses retrieved successfully",
       meta: {
         page: pageNumber,
         limit: limitNumber,
@@ -132,6 +132,22 @@ const deleteCourse = async (
     next(err);
   }
 };
+
+
+const GetBest = async (req: Request, res:Response, next:NextFunction) => {
+  try {
+    const bestCourse = await CourseServices.getBestCourseInDB();
+    res.status(200).json({
+      success: true,
+      statusCode: 200,
+      message: 'Best course retrieved successfully',
+      data: bestCourse,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 const updateCourse = async (
   req: Request,
   res: Response,
@@ -155,10 +171,14 @@ const updateCourse = async (
   }
 };
 
+
+
+
 export const CourseControlers = {
   CreatCourse,
   GetallCourse,
   GetSingleCourse,
   updateCourse,
   deleteCourse,
+  GetBest
 };

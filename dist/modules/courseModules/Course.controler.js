@@ -36,7 +36,9 @@ const CreatCourse = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
 const GetallCourse = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { page = "1", limit = "10", sortBy, sortOrder, minPrice, maxPrice, tags, startDate, endDate, language, provider, durationInWeeks, level, } = req.query;
-        const pageNumber = Array.isArray(page) ? parseInt(page[0]) : parseInt(page);
+        const pageNumber = Array.isArray(page)
+            ? parseInt(page[0])
+            : parseInt(page);
         const limitNumber = parseInt(limit);
         const filter = {};
         if (minPrice)
@@ -44,7 +46,7 @@ const GetallCourse = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
         if (maxPrice)
             filter.price = Object.assign(Object.assign({}, filter.price), { $lte: parseFloat(maxPrice) });
         if (tags)
-            filter['tags.name'] = tags;
+            filter["tags.name"] = tags;
         if (startDate)
             filter.startDate = { $gte: new Date(startDate) };
         if (endDate)
@@ -56,15 +58,15 @@ const GetallCourse = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
         if (durationInWeeks)
             filter.durationInWeeks = parseInt(durationInWeeks);
         if (level)
-            filter['details.level'] = level;
+            filter["details.level"] = level;
         const sort = {};
         if (sortBy)
-            sort[sortBy] = sortOrder === 'desc' ? -1 : 1;
+            sort[sortBy] = sortOrder === "desc" ? -1 : 1;
         const result = yield Course_services_1.CourseServices.getALlCoursesInDB(filter, sort, pageNumber, limitNumber);
         res.status(200).json({
             success: true,
             statusCode: 200,
-            message: 'Courses retrieved successfully',
+            message: "Courses retrieved successfully",
             meta: {
                 page: pageNumber,
                 limit: limitNumber,
@@ -81,12 +83,14 @@ const GetSingleCourse = (req, res, next) => __awaiter(void 0, void 0, void 0, fu
     try {
         const { courseId } = req.params;
         const result = yield Course_services_1.CourseServices.getSingleCourseInDB(courseId);
-        res.status(200).json({
-            success: true,
-            statusCode: 201,
-            message: "Course retrived successfully",
-            data: result,
-        });
+        if (result) {
+            res.status(200).json({
+                success: true,
+                statusCode: 201,
+                message: "Course retrived successfully",
+                data: result,
+            });
+        }
     }
     catch (err) {
         next(err);
@@ -99,8 +103,22 @@ const deleteCourse = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
         res.status(200).json({
             success: true,
             statusCode: 201,
-            message: "Course retrived successfully",
+            message: "Course delete successfully",
             data: result,
+        });
+    }
+    catch (err) {
+        next(err);
+    }
+});
+const GetBest = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const bestCourse = yield Course_services_1.CourseServices.getBestCourseInDB();
+        res.status(200).json({
+            success: true,
+            statusCode: 200,
+            message: 'Best course retrieved successfully',
+            data: bestCourse,
         });
     }
     catch (err) {
@@ -113,9 +131,10 @@ const updateCourse = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
         const data = req.body;
         const zodData = Course_Validation_1.CourseValidation.updateCourseSchemaValidation.parse(data);
         const result = yield Course_services_1.CourseServices.updateCourseInDB(courseId, zodData);
+        console.log(result, data, zodData);
         res.status(200).json({
             success: true,
-            statusCode: 201,
+            statusCode: 200,
             message: "Course updated successfully",
             data: result,
         });
@@ -130,4 +149,5 @@ exports.CourseControlers = {
     GetSingleCourse,
     updateCourse,
     deleteCourse,
+    GetBest
 };

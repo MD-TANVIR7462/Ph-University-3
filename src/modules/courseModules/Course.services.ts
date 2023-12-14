@@ -33,6 +33,7 @@ const getSingleCourseInDB = async (id: string) => {
 
 
 const updateCourseInDB = async (id: string, data: Partial<TCourse>) => {
+  console.log(data);
   const { tags, details, ...updateData } = data;
 
   const existingCourse = await CourseModel.findById(id);
@@ -57,7 +58,8 @@ const updateCourseInDB = async (id: string, data: Partial<TCourse>) => {
     existingCourse.tags = existingCourse.tags.filter((tag) => !tag.isDeleted);
   }
 
-  if (details) {
+  if (details && typeof details === 'object') {
+
     existingCourse.details = { ...existingCourse.details, ...details };
   }
 
@@ -70,10 +72,29 @@ const updateCourseInDB = async (id: string, data: Partial<TCourse>) => {
 
 
 
+
 const DeleteOneInDB = async (id: string) => {
   const result = await CourseModel.findByIdAndDelete(id, { new: true });
   return result;
 };
+
+const getBestCourseInDB = async () => {
+  const bestCourse = await CourseModel.findOne().sort('-averageRating').lean();
+
+  if (!bestCourse) {
+    
+    return null;
+  }
+
+  const { averageRating, reviewCount, ...courseDetails } = bestCourse;
+
+  return {
+    course: courseDetails,
+    averageRating,
+    reviewCount,
+  };
+};
+
 
 export const CourseServices = {
   creatACourseInDB,
@@ -81,4 +102,5 @@ export const CourseServices = {
   getSingleCourseInDB,
   updateCourseInDB,
   DeleteOneInDB,
+  getBestCourseInDB
 };

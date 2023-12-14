@@ -77,6 +77,10 @@ const courseSchema = new Schema<TCourse>({
      optional: true,
   },
   details: { type: DetailsSchema, required: [true, "Details is required"] },
+  averageRating: { type: Number, default: 0, },
+  reviewCount: { type: Number, default: 0 ,},
+
 });
+
 
 export const CourseModel = model<TCourse>("course", courseSchema);

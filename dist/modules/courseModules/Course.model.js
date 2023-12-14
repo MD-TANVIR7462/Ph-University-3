@@ -66,6 +66,10 @@ const courseSchema = new mongoose_1.Schema({
         trim: true,
         required: [true, "provider is required"],
     },
+    durationInWeeks: {
+        type: Number,
+        optional: true,
+    },
     details: { type: DetailsSchema, required: [true, "Details is required"] },
 });
 exports.CourseModel = (0, mongoose_1.model)("course", courseSchema);

@@ -7,6 +7,15 @@ const CreatCourse = async (req: Request, res: Response, next: NextFunction) => {
     const course = req.body;
     const ZodValidation =
       CourseValidation.createCourseSchemaValidation.parse(course);
+      const startDate = new Date(ZodValidation.startDate);
+      const endDate = new Date(ZodValidation.endDate);
+      const millisecondsInWeek = 7 * 24 * 60 * 60 * 1000;
+      const durationInWeeks = Math.ceil(
+        (endDate.getTime() - startDate.getTime()) / millisecondsInWeek
+      );
+  
+      
+      ZodValidation.durationInWeeks = durationInWeeks;
     const result = await CourseServices.creatACourseInDB(ZodValidation);
     res.status(200).json({
       success: true,

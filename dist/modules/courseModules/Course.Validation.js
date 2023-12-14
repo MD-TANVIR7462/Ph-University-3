@@ -24,6 +24,7 @@ const createCourseSchemaValidation = zod_1.z.object({
     endDate: zod_1.z.string().trim().min(1),
     language: zod_1.z.string().trim().min(1),
     provider: zod_1.z.string().trim().min(1),
+    durationInWeeks: zod_1.z.number().optional(),
     details: detailsSchema,
 });
 const updateCourseSchemaValidation = zod_1.z.object({
@@ -36,6 +37,7 @@ const updateCourseSchemaValidation = zod_1.z.object({
     endDate: zod_1.z.string().trim().min(1).optional(),
     language: zod_1.z.string().trim().min(1).optional(),
     provider: zod_1.z.string().trim().min(1).optional(),
+    durationInWeeks: zod_1.z.number().optional(),
     details: detailsSchema.optional(),
 });
 exports.CourseValidation = {

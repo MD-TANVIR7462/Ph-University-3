@@ -65,10 +65,15 @@ const courseSchema = new Schema<TCourse>({
     trim: true,
     required: [true, "Language is required"],
   },
+ 
   provider: {
     type: String,
     trim: true,
     required: [true, "provider is required"],
+  },
+  durationInWeeks:{
+    type: Number,
+     optional: true,
   },
   details: { type: DetailsSchema, required: [true, "Details is required"] },
 });

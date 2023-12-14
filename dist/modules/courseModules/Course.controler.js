@@ -16,6 +16,11 @@ const CreatCourse = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
     try {
         const course = req.body;
         const ZodValidation = Course_Validation_1.CourseValidation.createCourseSchemaValidation.parse(course);
+        const startDate = new Date(ZodValidation.startDate);
+        const endDate = new Date(ZodValidation.endDate);
+        const millisecondsInWeek = 7 * 24 * 60 * 60 * 1000;
+        const durationInWeeks = Math.ceil((endDate.getTime() - startDate.getTime()) / millisecondsInWeek);
+        ZodValidation.durationInWeeks = durationInWeeks;
         const result = yield Course_services_1.CourseServices.creatACourseInDB(ZodValidation);
         res.status(200).json({
             success: true,

@@ -19,39 +19,17 @@ app.use("/api/reviews", ReviewRoutes_1.ReviewRoutes);
 app.get("/", (req, res) => {
     res.send("Hello World!");
 });
-// app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-//   let messsage: any;
-// let finalMessage:any
-//   if (err instanceof ZodError) {
-//     let errorMessage: any;
-//     console.log(err);
-//     const FindErrorZOd = (err: any) => {
-//       const Eror = err.issues.forEach(
-//         (er: { message: any; errors: any; path: any }) => (
-//          (
-//             errorMessage = `${er.path[er.path.length - 1]} is ${er.message}.`
-//           ),
-//           (messsage = "Validation Error"),
-//           finalMessage=`${errorMessage}.${finalMessage}`
-//         )
-//       );
-//     };
-//     FindErrorZOd(err);
-//   }
-//
 app.use((err, req, res, next) => {
     let message;
     let finalMessage;
     if (err instanceof zod_1.ZodError) {
         let errorMessage;
-        console.log(err);
         const findErrorZod = (err) => {
             const errorArray = err.issues.map((er) => {
                 return `${er.path[er.path.length - 1]} is ${er.message}.`;
             });
             if (errorArray.length > 0) {
-                // Execute the following block only if there are validation errors
-                errorMessage = errorArray.join(' '); // Join error messages into a single string
+                errorMessage = errorArray.join(' ');
                 message = "Validation Error";
                 finalMessage = `${errorMessage}.`;
             }

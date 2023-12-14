@@ -136,11 +136,12 @@ const updateCourse = async (
     const { courseId } = req.params;
     const data = req.body;
     const zodData = CourseValidation.updateCourseSchemaValidation.parse(data);
-    const result = await CourseServices.updateCourseInDB(courseId, zodData);
 
+    const result = await CourseServices.updateCourseInDB(courseId, zodData);
+console.log(result,data,zodData);
     res.status(200).json({
       success: true,
-      statusCode: 201,
+      statusCode: 200,
       message: "Course updated successfully",
       data: result,
     });

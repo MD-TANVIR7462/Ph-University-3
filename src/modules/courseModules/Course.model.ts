@@ -25,7 +25,8 @@ const DetailsSchema = new Schema<TDetails>({
   description: {
     type: String,
     trim: true,
-    required: [true, "Description is required"],
+    required:false,
+    default:"Detailed description of the course"
   },
 });
 

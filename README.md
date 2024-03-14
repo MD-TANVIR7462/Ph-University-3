@@ -44,8 +44,7 @@ Welcome to Ph-hero-3! This project provides API routes for managing courses, cat
 
 ## Contributors
 
-- [Your Name]
-- [Other contributors]
+- MD Tajul Islam Tanvir
 
 ## License
 
